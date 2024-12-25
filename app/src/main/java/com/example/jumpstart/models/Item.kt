@@ -1,4 +1,3 @@
-package com.example.jumpstart.Models
+package com.example.jumpstart.models
 
-class Item {
-}
+data class Item(val imageId : Int , val title : String, val price : Double , val shippingTime : String)

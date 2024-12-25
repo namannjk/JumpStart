@@ -4,13 +4,16 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.jumpstart.Screens.AddItem
+import com.example.jumpstart.Screens.FilterScreen
+import com.example.jumpstart.Screens.GridView
+import com.example.jumpstart.Screens.ListView
 import com.example.jumpstart.ui.theme.JumpStartTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,29 +22,31 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             JumpStartTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                App()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun App(
+    appViewModel: AppViewModel = viewModel(),
+    navController: NavHostController = rememberNavController()
+) {
+
+    NavHost(navController = navController, startDestination = "listView") {
+    composable("listView") {
+        ListView(appViewModel,navController)
+    }
+    composable("gridView") {
+        GridView(appViewModel,navController)
+    }
+    composable("addItem") {
+        AddItem(appViewModel,navController)
+    }
+    composable("filterScreen") {
+        FilterScreen(appViewModel,navController)
+    }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    JumpStartTheme {
-        Greeting("Android")
-    }
 }
