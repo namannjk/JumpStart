@@ -48,7 +48,7 @@ fun TopAppBar(appViewModel: AppViewModel, title: String,navHostController: NavHo
                     color = Color(0xFF599c6b),
                     modifier = Modifier
                         .padding(
-                            start = 180.dp,
+                            start = 200.dp,
                             end = 10.dp,
                             top = 30.dp,
                             bottom = 0.dp
@@ -77,7 +77,6 @@ fun TopAppBar(appViewModel: AppViewModel, title: String,navHostController: NavHo
             )
         }
     }
-
 }
 
 

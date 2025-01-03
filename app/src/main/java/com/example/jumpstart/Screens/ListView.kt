@@ -37,6 +37,8 @@ fun ListView(
     appViewModel: AppViewModel,
     navController: NavHostController
 ) {
+   // val homeUiState = appViewModel._homeUiState.collectAsState().value
+   // val filteredItemList = remember { mutableStateOf(homeUiState.itemList) }
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = { TopAppBar(appViewModel,title = "Explore",navController) },
@@ -89,10 +91,12 @@ fun ItemDes(item: Item) {
                 // Text content
                 Column(
                     verticalArrangement = Arrangement.SpaceEvenly,
-                    modifier = Modifier.fillMaxWidth().padding(top = 5.dp,bottom = 5.dp)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 5.dp, bottom = 5.dp)
                 ) {
                     Text(
-                        text = item.title,
+                        text = item.name,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black
                     )
@@ -106,7 +110,7 @@ fun ItemDes(item: Item) {
                             color = Color.DarkGray
                         )
                         Text(
-                            text = item.shippingTime + " shipping",
+                            text = if (item.shippingTime == true) "Same day shipping" else "",
                             fontWeight = FontWeight.Light,
                             color = Color.DarkGray,
                             fontSize = 12.sp

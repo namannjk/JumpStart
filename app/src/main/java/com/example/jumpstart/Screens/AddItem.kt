@@ -39,6 +39,8 @@ import androidx.navigation.NavHostController
 import com.example.jumpstart.AppViewModel
 import com.example.jumpstart.Components.BottomAppBar
 import com.example.jumpstart.Components.TopAppBar
+import com.example.jumpstart.R
+import com.example.jumpstart.models.Item
 
 @Composable
 fun AddItem(appViewModel: AppViewModel, navController: NavHostController) {
@@ -48,19 +50,21 @@ fun AddItem(appViewModel: AppViewModel, navController: NavHostController) {
         bottomBar = { BottomAppBar(appViewModel,navController) }
     ) { contentPadding ->
         AddItemComponent(
-            modifier = Modifier.padding(contentPadding)
+            appViewModel = appViewModel,
+            modifier = Modifier.padding(contentPadding),
+            navController
         )
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddItemComponent(modifier: Modifier) {
+fun AddItemComponent(appViewModel: AppViewModel,modifier: Modifier,navController: NavHostController) {
     var itemName by remember { mutableStateOf("") }
     var itemPrice by remember { mutableStateOf("") }
 
     var expanded by remember { mutableStateOf(false) }
-    val shippingMethods = listOf("Same Day Shipping", "One Day Shipping", "Two Day Shipping")
+    val shippingMethods = listOf("Same Day Shipping", "Other")
     var selectedMethod by remember { mutableStateOf("") }
     var textFieldSize by remember { mutableStateOf(Size.Zero) }
 
@@ -137,7 +141,13 @@ fun AddItemComponent(modifier: Modifier) {
 
 
         Button(
-            onClick = { /* Handle click */ },
+            onClick = {
+                // Add item to the database
+                 appViewModel.addItem(Item(imageId = R.drawable.item1, name = itemName, price =  itemPrice.toDouble(), shippingTime =  if (selectedMethod == "Same Day Shipping") true else false))
+                navController.navigate("listView")
+                appViewModel.changeScren(1)
+
+            },
             shape = RoundedCornerShape(25.dp),
             colors = ButtonDefaults.buttonColors(Color(0xFF599c6b)),
             modifier = Modifier

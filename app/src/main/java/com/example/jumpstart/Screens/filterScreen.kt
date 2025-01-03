@@ -63,10 +63,11 @@ fun FilterScreen(
         Column {
             appViewModel.shippingMethods.forEach { method ->
                 DropdownMenuItem(
-                    text = { Text(text = method,
-                        fontWeight = if (appViewModel.selectedMethod.value == method) FontWeight.Bold else FontWeight.Normal) },
+                    text = { Text(text = method)
+                     //   fontWeight = if (appViewModel.selectedMethod.value == method) FontWeight.Bold else FontWeight.Normal)
+                           },
                     onClick = {
-                        appViewModel.selectedMethod.value = method // Update the selected value
+                        appViewModel.selectedMethod.value = if(method=="Same day shipping") true else false // Update the selected value
                     },
                     modifier = Modifier
                         .fillMaxWidth()

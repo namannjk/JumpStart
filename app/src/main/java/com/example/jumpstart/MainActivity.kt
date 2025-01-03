@@ -30,10 +30,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun App(
-    appViewModel: AppViewModel = viewModel(),
     navController: NavHostController = rememberNavController()
 ) {
-
+    val appViewModel: AppViewModel = viewModel(factory = AppViewModelProvider.Factory)
     NavHost(navController = navController, startDestination = "listView") {
     composable("listView") {
         ListView(appViewModel,navController)

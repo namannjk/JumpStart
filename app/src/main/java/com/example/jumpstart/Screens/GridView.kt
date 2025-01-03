@@ -35,6 +35,7 @@ fun GridView(
     appViewModel: AppViewModel,
     navController: NavHostController
 ) {
+    //val homeUiState = appViewModel._homeUiState.collectAsState().value
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = { TopAppBar(appViewModel,title = "Explore",navController) },
@@ -80,7 +81,7 @@ fun GridItem(item: Item) {
               //  colorFilter = ColorFilter.tint(Color.Gray)
             )
             Text(
-                text = item.title,
+                text = item.name,
                 fontWeight = FontWeight.Bold,
             )
             Text(
